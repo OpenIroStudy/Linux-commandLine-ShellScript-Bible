@@ -1,5 +1,5 @@
-# Linux-commandLine-ShellScript-Bible
-더 스마트하게 일하고 싶은 리눅서를 위한 리눅스 커맨드라인과 쉘 스크립트 정통서 스터디
+# 이것이 리눅스다 with RedHat CentOS 8
+1대의 컴퓨터로 여러 대의 컴퓨터 환경을 구축하며 배우는 리눅스 서버&네트워크
 
 # 스터디 운영
 
