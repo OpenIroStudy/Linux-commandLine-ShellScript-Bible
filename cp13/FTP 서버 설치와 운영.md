@@ -48,7 +48,61 @@ vsftpd의 설정 파일은 /etc/vsftpd/vsftpd.conf 파일이다.
 # FileZilla를 사용해 파일을 다운로드/업로드
 FileZilla Client를 다운받는다.(모두 기본 설정 값으로 설치)  
 
-![image](https://user-images.githubusercontent.com/67637716/194820946-1a23c1e9-d054-4b1b-b2d1-c8f14d768a35.png)  
+![image](https://user-images.githubusercontent.com/67637716/194823228-c09eb1c8-5086-41a1-b12b-74b8629cf05d.png)  
+
+
+![image](https://user-images.githubusercontent.com/67637716/194823540-2af7d4f8-15e0-4ffd-a9c7-88f602801e7b.png)  
+file1을 window/client로 다운받는건 되지만 업로드는 되지않는것을 볼 수 있다. [550 Permission denied.]  
+
+/etc/vsftpd/vsftpd.conf 파일 수정.  
+
+![image](https://user-images.githubusercontent.com/67637716/194823959-a9e1c459-d233-48b0-989b-40e232b5fec5.png)  
+
+```  
+19행 : write_enable=YES : 기본적인 업로드 허용
+29행 : anon_upload_enable=YES : 주석 제거, anonymous 사용자의 업로드 허용
+33행 : anon_mkdir_wirte_enable : 주석 제거, anonymous 사용자의 디렉터리 생성 허용
+```  
+업로드할 /var/ftp/pup 디렉터리의 소유권도 anonmous 사용자의 접속 이름인 ftp로 바꿔야한다.  
+```
+// 소유자와 소유 그룹을 동시에 변경
+// chown 소유자.소유그룹 파일이름
+// 또는
+// chown 소유자:소유그룹 파일이름
+// chown명령으로 소유권을 변경하는 대신 chmod 777 /var/ftp/pub 명령으로 허가권을 변경해도 업로드 가능하다.  
+chown ftp.ftp /var/ftp/pup/
+```  
+
+![image](https://user-images.githubusercontent.com/67637716/194824554-7e4bc117-e947-4b4e-add1-1d2b699d81ef.png)  
+
+systemctl restart vsftpd 명령으로 서비스 재시작.  
+
+![image](https://user-images.githubusercontent.com/67637716/194825013-1e9fb3b5-f7b3-4f6c-8934-58f23e62e262.png)  
+
+### vsftpd.conf 파일
+```  
+# 자주 사용하는 옵션
+anonymous_enable : anonymous 사용자의 접속을 허가할지 설정 ( YES )
+local_enable : 로컬 사용자의 접속 허가 여부 설정 ( YES )
+write_enable : 로컬 사용자가 저장, 삭제, 디렉터리 생성 등의 명령을 실행하게 할 것인지 설정.(anonymous 사용자는 해당 없음) (YES)  
+anon_upload_enable : anonymous 사용자의 파일 업로드 허가 여부 설정 (NO)
+anon_mkdir_write_enable : anonymous 사용자의 디렉터리 생성허가 여부 설정 (NO)
+dirlist_enable : 접속한 디렉터리의 파일 리스트를 보여줄지 설정 (YES)
+listen_port : FTP 서비스의 포트 번호 설정( 21번 )
+```  
+
+### server에 로컬 사용자로 접속
+![image](https://user-images.githubusercontent.com/67637716/194826690-4e7cf406-c5ac-4bd3-bfc0-1ba1f93bdf22.png)  
+접속이 잘된다. (vsftp.conf파일에 local_enable=YES라는 행이 있기 때문)  
+
+
+
+
+
+
+
+
+
 
 
 
