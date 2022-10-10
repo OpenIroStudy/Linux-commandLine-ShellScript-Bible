@@ -18,6 +18,45 @@
 
 <hr>
 # vsftpd의 설치와 운영
-Very Secure FTPD는 CentOS에서 기본적으로 제공되며, 리눅스와 유닉스 환경에서 보안성과 성능이 우수한 ftp 서버로 인정받고 있다.
+Very Secure FTPD는 CentOS에서 기본적으로 제공되며, 리눅스와 유닉스 환경에서 보안성과 성능이 우수한 ftp 서버로 인정받고 있다.  
 설치, 운영이 쉬워서 FTP서버를 운영하는데 많이 사용됨.  
+
+```
+yum -y install vsftpd
+```  
+위 명령을 입력해 vsftpd 패키지 설치.  
+vsftpd에 anonymous로 접속되는 디렉터리는 `/var/ftp/`다.  
+다음 명령으로 이 디렉터리 아래에 있는 /pub 디렉터리에 샘플 파일 몇 개 복사하고 서비스 가동시킨다.  
+vsftpd 패키지의 서비스 이름도  vsftpd.  
+
+```
+cd /var/ftp
+ls
+cd pub
+cp /boot/vmlinuz-4* file1  -> 샘플 파일 복사
+ls
+systemctl restart vsftpd -> vsftpd 서비스 재가동
+systemctl enable vsftpd  -> 리눅스 부팅 시 vsftpd 서비스를 자동으로 가동 
+```  
+
+![image](https://user-images.githubusercontent.com/67637716/194819949-b9231f76-7709-430c-b06d-a23debfabc65.png)  
+
+외부에서 FTP서버에 원활하게 접근할 수 있도록, 21번 포트 열어놓는다.  
+![image](https://user-images.githubusercontent.com/67637716/194820049-ca74d7fa-0aab-4dd5-9211-d4334c168b66.png)  
+
+vsftpd의 설정 파일은 /etc/vsftpd/vsftpd.conf 파일이다.  
+12행에 `anonymous_enable=NO`로 되어있는 부분을 YES로 변경한 후 저장.  
+
+=> 이전 버전의 vsftpd는 기본적으로 anonymous의 접속이 허용되어 있었지만, 최근의 리눅스에서는 허용이 안 되어있다. (보안 측면에서 도움이 됨)  
+![image](https://user-images.githubusercontent.com/67637716/194820356-c8ff21a1-83b3-48c7-82da-828db7aadaf8.png)  
+설정변경했으니 systemctl restart vsftpd명령으로 서비스 재시작  
+
+
+
+
+
+
+
+
+
 
