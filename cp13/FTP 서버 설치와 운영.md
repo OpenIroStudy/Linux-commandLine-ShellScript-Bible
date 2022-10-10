@@ -9,13 +9,6 @@
     * 패스워드를 넣지않거나 어떤 내용을 넣더라도 로그인 하는데 문제는 없지만 이메일 주소를 넣는 것이 통신상의 예의라고함
 
 
-
-## 목차
-1. vsftpd의 설치와 운영
-2. vsftpd.conf 파일 설정
-3. FTP 클라이언트 사용
-4. Pure-FTPD의 설치와 운영
-
 <hr>
 # vsftpd의 설치와 운영
 Very Secure FTPD는 CentOS에서 기본적으로 제공되며, 리눅스와 유닉스 환경에서 보안성과 성능이 우수한 ftp 서버로 인정받고 있다.  
@@ -29,7 +22,8 @@ vsftpd에 anonymous로 접속되는 디렉터리는 `/var/ftp/`다.
 다음 명령으로 이 디렉터리 아래에 있는 /pub 디렉터리에 샘플 파일 몇 개 복사하고 서비스 가동시킨다.  
 vsftpd 패키지의 서비스 이름도  vsftpd.  
 
-```
+```  
+
 cd /var/ftp
 ls
 cd pub
@@ -50,6 +44,13 @@ vsftpd의 설정 파일은 /etc/vsftpd/vsftpd.conf 파일이다.
 => 이전 버전의 vsftpd는 기본적으로 anonymous의 접속이 허용되어 있었지만, 최근의 리눅스에서는 허용이 안 되어있다. (보안 측면에서 도움이 됨)  
 ![image](https://user-images.githubusercontent.com/67637716/194820356-c8ff21a1-83b3-48c7-82da-828db7aadaf8.png)  
 설정변경했으니 systemctl restart vsftpd명령으로 서비스 재시작  
+
+# FileZilla를 사용해 파일을 다운로드/업로드
+FileZilla Client를 다운받는다.(모두 기본 설정 값으로 설치)  
+
+![image](https://user-images.githubusercontent.com/67637716/194820946-1a23c1e9-d054-4b1b-b2d1-c8f14d768a35.png)  
+
+
 
 
 
