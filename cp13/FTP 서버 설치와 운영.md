@@ -96,6 +96,39 @@ listen_port : FTP 서비스의 포트 번호 설정( 21번 )
 접속이 잘된다. (vsftp.conf파일에 local_enable=YES라는 행이 있기 때문)  
 
 
+## scp 명령어
+ssh 원격 접속 프로토콜을 기반으로 한 SecureCopy(scp)의 약자로서 원격지에 있는 파일과 디렉터리를  보내거나 가져올 때 사용하는 파일 전송 프로토콜.  
+
+네트워크가 연결되어 있는 환경에서 ssh와 동일한 22번 포트와 identity file을 사용해서  
+파일을 송수신하기 때문에 보안적으로도 안정된 프로토콜이라고 할 수 있다.  
+
+### Local ( 로컬 ) ----> Remote (원격지)
+```
+ scp [옵션] [파일명 1] [파일명 2] [원격지_id]@[원격지_ip]:[받는 위치]
+```  
+![image](https://user-images.githubusercontent.com/67637716/194976783-63bde828-1f3d-4313-94f3-ca828bdd0f3c.png)  
+
+##### 여러 파일을 포함하고 있는 디렉터리를 원격지로 보낼 때. ( -r 옵션을 사용 )
+``` 
+ scp [옵션] [디렉터리 이름] [원격지_id]@[원격지_ip]:[보낼 경로]
+```  
+![image](https://user-images.githubusercontent.com/67637716/194976832-fe232f4e-986d-4601-bbab-706da8ab1930.png)  
+
+r옵션을 사용하면 하위 디렉토리까지 복사가 된다.  
+
+![image](https://user-images.githubusercontent.com/67637716/194976892-170a5376-c66f-4d6d-8107-0c66c6fcd09e.png)  
+
+
+### Remote ( 원격지 ) ---> Local ( 로컬 )
+```
+scp [옵션] [원격지_id]@[원격지_ip]:[원본 위치 파일][원본 위치 파일] [받는 위치]
+```
+원격지 경로의 파일을 " " (큰따옴표)를 사용해서 묶어준다.  
+
+![image](https://user-images.githubusercontent.com/67637716/194977088-2c57bf93-20ce-42cb-b81f-3ccc03a444fc.png)  
+
+
+
 
 
 
