@@ -96,7 +96,7 @@ listen_port : FTP 서비스의 포트 번호 설정( 21번 )
 접속이 잘된다. (vsftp.conf파일에 local_enable=YES라는 행이 있기 때문)  
 
 
-## scp 명령어
+# scp 명령어
 ssh 원격 접속 프로토콜을 기반으로 한 SecureCopy(scp)의 약자로서 원격지에 있는 파일과 디렉터리를  보내거나 가져올 때 사용하는 파일 전송 프로토콜.  
 
 네트워크가 연결되어 있는 환경에서 ssh와 동일한 22번 포트와 identity file을 사용해서  
@@ -127,6 +127,42 @@ scp [옵션] [원격지_id]@[원격지_ip]:[원본 위치 파일][원본 위치 
 
 ![image](https://user-images.githubusercontent.com/67637716/194977088-2c57bf93-20ce-42cb-b81f-3ccc03a444fc.png)  
 
+
+# Pure-Ftpd
+Pure-FTPD는 ProFTPD나 vsFTPD에 비해 보안에 있어서 보다 안전하다고 알려져 있고, 리소스도 덜 사용하도록 설계되었다고 함.  
+
+```
+# 설치  
+epel-release 설치 (yum -y install epel-release)  
+pure-ftpd 설치 (yum -y install pure-ftpd)  
+```  
+
+! epel-release란?  
+EPEL (Extra Packages for Enterprise Linux) 은 Fedora Project 에서 제공되는 저장소로 각종 패키지의 최신 버전을 제공하는 community 기반의 저장소이다.  
+RHEL 의 패키지 정책은 보수적이고 안정성이 최우선이라 패키지 업데이트가 잘 되지 않는다.  
+최신 버전의 패키지를 사용하고 싶은 경우는 (Ex. MySQL5.5, PHP 5.4 ) epel 이나 remi repository 를 등록하고 이 저장소를 통해서 설치하면 된다.  
+
+#### pure-ftpd 설정파일
+설정 파일은 /etc/pure-ftod/pure-ftpd.conf다.  
+
+77행 : noAnonymous  no (anonymous 사용자 접속 허용)  
+279행 : AnonymousCantUpload yes -> no (anonymous 사용자 업로드 허용)  
+![image](https://user-images.githubusercontent.com/67637716/194978136-5297b325-0777-4e71-81f3-5365b9d938cc.png)  
+
+```
+systemctl restart pure-ftpd
+systemctl enable pure-ftpd
+
+cd /var/ftp
+rm -rf *
+mkdir upload download
+chown ftp.ftp upload download
+chmod 333 upload -> 쓰기만 가능하도록 허가권 변경
+ls -l
+cp /boot/vm* /var/ftp/download 
+```  
+
+fileZilla로 동일하게 ftp서버 운영할 수 있다.  
 
 
 
